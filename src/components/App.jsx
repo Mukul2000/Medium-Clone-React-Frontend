@@ -1,26 +1,39 @@
 import React from "react";
+import Home from "./Home";
 import Login from "./Login/Login";
-import Axios from "axios";
+import Navbar from "react-bootstrap/Navbar";
+import Nav from "react-bootstrap/Nav";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+} from "react-router-dom";
+
+
 
 function App() {
-
-    const getArticles = () => {
-        // Axios.get("localhost:3000/api/articles").then(response  => {
-        //     console.log(response);
-        // });
-
-        Axios.get("https://official-joke-api.appspot.com/random_joke").then(response  => {
-            console.log(response);
-        });
-
-    }
-
-return (
-    <div className="container">
-        <button onClick={getArticles}> Get stuff </button>
-        
-    </div>
-);
+    return (
+        <Router>
+            <div className="container">
+                <div className="container-fluid">
+                    <Navbar bg="dark" variant="dark">
+                        <Nav className="mr-auto">
+                            <Nav.Link href="/">Home</Nav.Link>s
+                            <Nav.Link href="/Login">Log In</Nav.Link>
+                        </Nav>
+                    </Navbar>
+                    <Switch>
+                        <Route path="/Login">
+                            <Login />
+                        </Route>
+                        <Route path="/">
+                            <Home />
+                        </Route>
+                    </Switch>
+                </div>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
