@@ -19,7 +19,7 @@ export default function Home() {
     return (
         <div>
             <Jumbotron fluid>
-                <h1 className="display-1">Conduit</h1>
+                <h1 className="display-1 text-center">Conduit</h1>
                 <p className="lead text-center">
                     What's your story today?
                 </p>

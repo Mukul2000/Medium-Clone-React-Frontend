@@ -1,5 +1,8 @@
 import React, {useState} from "react";
-import "./Login.css";
+import SignUp from "./SignUp";
+import {Link} from "react-router-dom";
+import Button from "react-bootstrap/Button";
+
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -16,12 +19,13 @@ export default function Login() {
     }
 
     return (
-        <div className="Login">
+        <div className="form-group">
         <h1> Please log in </h1>
         <form onSubmit={handleSubmit}> 
             <label>
                 <p> Email </p>
                 <input 
+                class="form-control"
                 value = {email}
                 autoFocus
                 onChange={(e) => setEmail(e.target.value)} 
@@ -30,14 +34,16 @@ export default function Login() {
             <label>
                 <p> Password </p>   
                 <input 
+                class="form-control"
                 value = {pass}
                 onChange={(e) => setPassword(e.target.value)}
                 type="password"/>
             </label>
             <div>
-            <button type="submit" disabled={!validateForm()}> Submit </button>
+            <Button type="submit" variant="primary" disabled={!validateForm()}> Submit </Button>
             </div>
         </form>
+        Sign Up
         </div>
     );
 }
