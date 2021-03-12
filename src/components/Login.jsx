@@ -1,13 +1,22 @@
-import React, { useState } from "react";
-import SignUp from "./SignUp";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import axios from "axios";
+import { Redirect, useHistory } from "react-router";
 
 
-export default function Login() {
+export default function Login(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    
+
+    useEffect(() => {
+        console.log(props.location);
+        if(localStorage.getItem("token")) {
+            //TODO: some code to redirect to homepage, don't want to authenticate again
+
+        }
+    },[]);
 
     const loginURL = "https://conduit-medium-clone-api.herokuapp.com/api/users/login";
 
@@ -15,7 +24,7 @@ export default function Login() {
         return email.length > 0 && password.length > 0;
     }
 
-    async function handleSubmit(event) {
+    function handleSubmit(event) {
         event.preventDefault();
         const creds = {
             "user": {
@@ -28,12 +37,11 @@ export default function Login() {
         .then((response) => {
             console.log(response.data);
             const token = response.data.user.token;
-            localStorage.setItem("token", token);
+            localStorage.setItem("token", JSON.stringify(token));
+            props.setToken(localStorage["token"]);
         }, (error) => {
             console.log(error);
         });
-        
-        
     }
 
 
