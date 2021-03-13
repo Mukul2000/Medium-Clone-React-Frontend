@@ -7,7 +7,6 @@ export default function Article(props) {
         if (articles.length > 0) {
         return (
             articles.map((article,index) => {
-                console.log(article);
                 return (
                     <div className='article' key = {article._id}>
                         <h2 className='display2'> {article.title} </h2>
