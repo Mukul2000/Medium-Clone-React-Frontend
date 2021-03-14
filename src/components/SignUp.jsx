@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router";
-import AuthServices from "../services/auth_services"
+import AuthServices from "../services/user/auth_services"
 
 
 export default function Login() {

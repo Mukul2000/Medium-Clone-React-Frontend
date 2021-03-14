@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MyNav from "./MyNav";
+import NewArticle from "./NewArticle";
 
 
 
@@ -23,6 +24,7 @@ function App() {
                         <Route path="/login" exact component={Login}/>
                         <Route path="/" exact component={Home}/>
                         <Route path="/register" exact component={SignUp}/>
+                        <Route path="/create" exact component={NewArticle}/>
                     </Switch>
                 </div>
         </Router>
