@@ -20,13 +20,11 @@ function App() {
                 <div className="container-fluid">
                     <MyNav login={loggedIn} setLogin = {setLoggedIn} /> 
                 </div> 
-                <div className="container">
                     <Switch>
                         <Route path="/login" exact component={Login}/>
                         <Route path="/" exact component={Home}/>
                         <Route path="/register" exact component={SignUp}/>
-                    </Switch>
-                </div>
+                    </Switch>    
         </Router>
     );
 }

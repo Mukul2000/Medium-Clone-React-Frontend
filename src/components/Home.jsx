@@ -17,7 +17,7 @@ export default function Home() {
 
 
     return (
-        <div>
+        <div className = "container-fluid">
             <Jumbotron fluid>
                 <h1 className="display-1 text-center">Conduit</h1>
                 <p className="lead text-center">
@@ -27,7 +27,9 @@ export default function Home() {
                     <Button variant="primary">Explore</Button>
                 </p>
             </Jumbotron>
+            <div className="container">
             <Article articles={articles} />
+            </div>
         </div>
     );
 }
