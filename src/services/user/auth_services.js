@@ -2,7 +2,13 @@ import axios from "axios";
 
 const API_URL = "http://conduit-medium-clone-api.herokuapp.com/api/";
 
-async function login(user_creds) {
+async function login(email, pass) {
+    const user_creds = {
+        "user": {
+            "email": email,
+            "password": pass
+        }
+    }
     const response = await axios.post(API_URL+"users/login", user_creds);
     return response.data;
 }

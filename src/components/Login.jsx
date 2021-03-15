@@ -21,17 +21,10 @@ export default function Login(props) {
     async function handleSubmit(event) {
         event.preventDefault();
         try {
-            const creds = {
-                "user": {
-                    "email": email,
-                    "password": pass
-                }
-            }
-            const response = await AuthServices.login(creds);
+            const response = await AuthServices.login(email,pass);
             localStorage.setItem("user", JSON.stringify(response.user));
             props.location.loginStat.setLogin(true);
             history.push("/");
-            window.location.reload();
         }
         catch (e) {
             console.log(e);

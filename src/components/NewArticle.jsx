@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router";
 import Button from "react-bootstrap/Button";
 import ArticleServices from "../services/article/article_services";
 
-export default function Login(props) {
+export default function NewArticle(props) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [body,setBody] = useState("");
@@ -19,6 +19,7 @@ export default function Login(props) {
 
         try {
         const response = await ArticleServices.createArticle(title,description,body);
+        history.push("/");
         }
         catch(e) {
             console.log(e);

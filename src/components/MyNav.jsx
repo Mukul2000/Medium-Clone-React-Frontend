@@ -15,6 +15,7 @@ export default function MyNav(props) {
                             setLogin: props.setLogin
                         }
                     }}> Log In</Link>}
+                    {props.login && <Link to = {{ pathname: "/create"}}> New Article </Link>}
                 </Nav>
             </Navbar>
         </div>
