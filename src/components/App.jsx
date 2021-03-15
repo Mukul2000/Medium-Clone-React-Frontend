@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Home from "./Home";
 import Login from "./Login";
 import SignUp from "./SignUp";
@@ -15,6 +15,11 @@ import NewArticle from "./NewArticle";
 
 function App() {
     const [loggedIn, setLoggedIn] = useState(false);
+
+    useEffect(() => {
+        if(localStorage.getItem('user')) setLoggedIn(true);
+    },[])
+    
 
     return (
         <Router>
