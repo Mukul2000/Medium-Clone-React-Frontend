@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router";
 import AuthServices from "../services/user/auth_services"
-
+import { Link } from "react-router-dom";
 
 export default function Login(props) {
     const [email, setEmail] = useState("");
@@ -11,7 +11,7 @@ export default function Login(props) {
     let history = useHistory();
 
     useEffect(() => {
-        if(localStorage.getItem("user")) history.push("/");
+        if (localStorage.getItem("user")) history.push("/");
     }, [])
 
     function validateForm() {
@@ -21,7 +21,7 @@ export default function Login(props) {
     async function handleSubmit(event) {
         event.preventDefault();
         try {
-            const response = await AuthServices.login(email,pass);
+            const response = await AuthServices.login(email, pass);
             localStorage.setItem("user", JSON.stringify(response.user));
             props.location.loginStat.setLogin(true);
             history.push("/");
@@ -32,31 +32,36 @@ export default function Login(props) {
     }
 
     return (
-        <div className="form-group">
-            <h1> Please log in </h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    <p> Email </p>
+        <div className="mt-4 ml-4">
+                <h1> Please log in </h1>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                    <label> Email </label>
                     <input
                         class="form-control"
                         value={email}
                         autoFocus
                         onChange={(e) => setEmail(e.target.value)}
-                        type="email" />
-                </label>
-                <label>
-                    <p> Password </p>
+                        type="email"
+                        placeholder="Enter email"
+                    />
+                    </div>
+                    <div className="form-group">
+                    <label> Password </label>
                     <input
                         class="form-control"
                         value={pass}
                         onChange={(e) => setPassword(e.target.value)}
-                        type="password" />
-                </label>
-                <div>
-                    <Button type="submit" variant="primary" disabled={!validateForm()}> Submit </Button>
-                </div>
-            </form>
-        Sign Up
+                        type="password"
+                        placeholder="Enter password"
+                    />
+                    </div>
+                    <div className="mb-3">
+                        <Button type="submit" variant="primary" disabled={!validateForm()}> Submit </Button>
+                    </div>
+                </form>
+        <Link to ="/register"> Sign Up </Link>
+       
         </div>
     );
 }

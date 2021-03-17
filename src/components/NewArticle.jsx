@@ -6,7 +6,7 @@ import ArticleServices from "../services/article/article_services";
 export default function NewArticle(props) {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [body,setBody] = useState("");
+    const [body, setBody] = useState("");
 
     let history = useHistory();
 
@@ -18,50 +18,51 @@ export default function NewArticle(props) {
         e.preventDefault();
 
         try {
-        const response = await ArticleServices.createArticle(title,description,body);
-        history.push("/");
+            const response = await ArticleServices.createArticle(title, description, body);
+            history.push("/");
         }
-        catch(e) {
+        catch (e) {
             console.log(e);
         }
-        
+
     }
 
-    
+
     return (
-        <div className="form-group">
-            <h1> Write something </h1>
+        <div className="mt-4 ml-4">
+            <h1> Create something </h1>
             <form onSubmit={handleSubmit}>
-                <label>
-                    <p> Title </p>
+                <div className="form-group">
+                    <label> Title </label>
                     <input
                         class="form-control"
                         value={title}
                         autoFocus
                         onChange={(e) => setTitle(e.target.value)}
                         type="text" />
-                </label>
-                <label>
-                    <p> Description </p>
+                </div>
+                <div className="form-group">
+                    <label> Description </label>
                     <input
                         class="form-control"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         type="text" />
-                </label>
-                <label>
-                    <p> Body </p>
-                    <input
+                </div>
+                <div className="form-group">
+                    <label> Body </label>
+                    <textarea
                         class="form-control"
                         value={body}
                         onChange={(e) => setBody(e.target.value)}
-                        type="text" />
-                </label>
-                <div>
+                        type="text"
+                        height = "100"
+                        />
+                </div>
+                <div className="mb-3">
                     <Button type="submit" variant="primary" disabled={!validateForm()}> Submit </Button>
                 </div>
             </form>
-        Sign Up
         </div>
     );
 }

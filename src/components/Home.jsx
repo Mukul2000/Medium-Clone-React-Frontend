@@ -20,27 +20,32 @@ export default function Home() {
 
 
     return (
-        <div className="container-fluid">
-            <Jumbotron fluid>
-                <h1 className="display-1 text-center">Conduit</h1>
-                <p className="lead text-center">
-                    What's your story today?
+        <div>
+            <div className="container-fluid">
+                <Jumbotron fluid>
+                    <h1 className="display-1 text-center">Conduit</h1>
+                    <p className="lead text-center">
+                        What's your story today?
                 </p>
-                <p className="text-center">
-                    <Button variant="primary">Explore</Button>
-                </p>
-            </Jumbotron>
-            {articles.map((article,index) => {
-                return (
-                    <Article
-                        title = {article.title}
-                        description = {article.description}
-                        body = {article.body}
-                        tags = {article.tagList}
-                        author = {article.author}
-                    />
-                )
-            })}
+                    <p className="text-center">
+                        <Button variant="primary">Explore</Button>
+                    </p>
+                </Jumbotron>
+            </div>
+            <div className = "container">
+                {articles.map((article, index) => {
+                    return (
+                        <Article
+                            key = {article._id}
+                            title={article.title}
+                            description={article.description}
+                            body={article.body}
+                            tags={article.tagList}
+                            author={article.author}
+                        />
+                    )
+                })}
+            </div>
         </div>
     );
 }

@@ -17,14 +17,14 @@ export default function MyNav(props) {
             <Navbar bg="dark" variant="dark">
                 <Nav className="mr-auto">
                     <Link className="mt-2" to="/">Home</Link>
-                    {!props.login && <Link className="ml-2 mt-2" to={{
+                    {!props.login && <Link className="btn btn-primary ml-4" to={{
                         pathname: "/login",
                         loginStat: {
                             setLogin: props.setLogin
                         }
                     }}> Log In</Link>}
-                    {props.login && <Link className="ml-5 mt-2" to = {{ pathname: "/create"}}> New Article </Link>}
-                    {props.login && <Button className="ml-5" onClick = {handleLogOut}> Log Out </Button>}
+                    {props.login && <Link className="btn btn-primary ml-5" to = {{ pathname: "/create"}}> New Article </Link>}
+                    {props.login && <div className="ml-5 mt-2" onClick = {handleLogOut}> Log Out </div>}
                 </Nav>
             </Navbar>
         </div>
