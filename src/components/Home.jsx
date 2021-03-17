@@ -8,16 +8,19 @@ export default function Home() {
     const [articles, setArticles] = useState([]);
     const fetchURL = "https://conduit-medium-clone-api.herokuapp.com/api/articles";
 
-    useEffect(()=> {
+    useEffect(() => {
         getData();
     }, [])
 
-    const getData = () => axios.get(fetchURL).then((response) => setArticles(response.data[0]));
+    const getData = () => axios.get(fetchURL).then((response) => {
+        console.log(response.data);
+        setArticles(response.data[0])
+    });
 
 
 
     return (
-        <div className = "container-fluid">
+        <div className="container-fluid">
             <Jumbotron fluid>
                 <h1 className="display-1 text-center">Conduit</h1>
                 <p className="lead text-center">
@@ -27,9 +30,17 @@ export default function Home() {
                     <Button variant="primary">Explore</Button>
                 </p>
             </Jumbotron>
-            <div className="container">
-            <Article articles={articles} />
-            </div>
+            {articles.map((article,index) => {
+                return (
+                    <Article
+                        title = {article.title}
+                        description = {article.description}
+                        body = {article.body}
+                        tags = {article.tagList}
+                        author = {article.author}
+                    />
+                )
+            })}
         </div>
     );
 }
