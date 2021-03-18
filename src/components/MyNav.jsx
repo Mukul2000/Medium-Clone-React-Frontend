@@ -24,7 +24,7 @@ export default function MyNav(props) {
                         }
                     }}> Log In</Link>}
                     {props.login && <Link className="btn btn-primary ml-5" to = {{ pathname: "/create"}}> New Article </Link>}
-                    {props.login && <div className="ml-5 mt-2" onClick = {handleLogOut}> Log Out </div>}
+                    {props.login && <div className="btn ml-4" onClick = {handleLogOut}> Log Out </div>}
                 </Nav>
             </Navbar>
         </div>

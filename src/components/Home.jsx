@@ -12,10 +12,7 @@ export default function Home() {
         getData();
     }, [])
 
-    const getData = () => axios.get(fetchURL).then((response) => {
-        console.log(response.data);
-        setArticles(response.data[0])
-    });
+    const getData = () => axios.get(fetchURL).then((response) => setArticles(response.data[0]));
 
 
 

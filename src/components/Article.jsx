@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
+import {Link} from "react-router-dom";
 
 export default function Article(props) {
     let loggedin_id;
@@ -7,12 +7,22 @@ export default function Article(props) {
     if (localStorage.getItem('user'))
         loggedin_id = JSON.parse(localStorage.getItem('user'))._id;
     else loggedin_id = "mumbojumbo";
-    
+
     return (
         <div className="card text-white bg-dark mb-3">
             <div className="d-flex flex row ml-2">
                 <div className="card-header p-2">
-                    <h2>{props.title}</h2>
+                    <Link to={{
+                        pathname: "/article/das",
+                        article: {
+                            title: props.title,
+                            description: props.description,
+                            body: props.body,
+                            author: props.author
+                        }
+                    }}>
+                        <h2>{props.title}</h2>
+                    </Link>
                 </div>
                 {loggedin_id == props.author._id && <div className="p-2 btn btn-warning ml-2"> Update </div>}
                 {loggedin_id == props.author._id && <div className="p-2 btn btn-danger ml-2"> Delete </div>}

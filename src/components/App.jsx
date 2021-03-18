@@ -10,6 +10,7 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MyNav from "./MyNav";
 import NewArticle from "./NewArticle";
+import ArticleDetail from "./ArticleDetail";
 
 
 
@@ -31,6 +32,7 @@ function App() {
                         <Route path="/" exact component={Home}/>
                         <Route path="/register" exact component={SignUp}/>
                         <Route path="/create" exact component={NewArticle}/>
+                        <Route path="/article/:slug" exact component={ArticleDetail} />
                     </Switch>
         </Router>
     );
