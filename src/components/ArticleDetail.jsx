@@ -22,7 +22,6 @@ export default function ArticleDetail(props) {
     const getData = async () => {
         const response = await axios.get(fetchURL);
         setArticle(response.data.article);
-        console.log(article);
     }
 
 
