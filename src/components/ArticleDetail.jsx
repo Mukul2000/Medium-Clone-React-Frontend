@@ -1,27 +1,21 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import ArticleServices from "../services/article/article_services";
 
 export default function ArticleDetail(props) {
     const [article, setArticle] = useState();
     const slug = props.match.params.slug;
-    const fetchURL = "https://conduit-medium-clone-api.herokuapp.com/api/articles/" + slug;
 
     let loggedin_id = "";
     if (localStorage.getItem('user'))
         loggedin_id = JSON.parse(localStorage.getItem('user'))._id;
-
-
-
 
     useEffect(() => {
         getData();
     }, [])
 
     const getData = async () => {
-        const response = await axios.get(fetchURL);
-        setArticle(response.data.article);
+        const response = await ArticleServices.getBySlug(slug);
+        setArticle(response.article);
     }
 
 

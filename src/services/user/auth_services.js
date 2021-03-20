@@ -28,9 +28,11 @@ function logout() {
 
 
 
-export default {
+const AuthServices = {
     login,
     register,
     getCurrentUser,
     logout
 }
+
+export default AuthServices;

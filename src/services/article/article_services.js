@@ -24,7 +24,9 @@ async function getBySlug(slug) {
     return response.data;
 }
 
-export default {
+const ArticleServices = {
     createArticle,
     getBySlug
 }
+
+export default ArticleServices;
