@@ -19,6 +19,12 @@ async function createArticle(title, description, body) {
     return response.data;
 }
 
+async function getBySlug(slug) {
+    const response = await axios.get(API_URL + "articles/" + slug);
+    return response.data;
+}
+
 export default {
-    createArticle
+    createArticle,
+    getBySlug
 }

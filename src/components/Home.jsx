@@ -39,6 +39,7 @@ export default function Home() {
                             body={article.body}
                             tags={article.tagList}
                             author={article.author}
+                            slug = {article.slug}
                         />
                     )
                 })}
