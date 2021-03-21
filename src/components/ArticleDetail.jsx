@@ -26,16 +26,19 @@ export default function ArticleDetail(props) {
     }
     else {
         return (
+            <div>
             <div className="card text-center">
                 <div className="card-header">
                     <h1> {article.title} </h1>
-                    {(loggedin_id === article.author._id) && <div className="p-2 btn btn-warning ml-2"> Update </div>}
-                    {(loggedin_id === article.author._id) && <div className="p-2 btn btn-danger ml-2"> Delete </div>}
+                    <h6 className="text-right"> {article.author.username} </h6>
                 </div>
                 <div className="card-body">
-                    <h5 className="card-title text-muted text-left">{article.description} --{article.author.username}</h5>
+                    <h5 className="card-title text-muted text-left">{article.description}</h5>
                     <h5><p className="card-text">{article.body}</p></h5>
                 </div>
+            </div>
+            {(loggedin_id === article.author._id) && <div className="p-2 btn btn-warning ml-2"> Update </div>}
+                {(loggedin_id === article.author._id) && <div className="p-2 btn btn-danger ml-2"> Delete </div>}
             </div>
         )
     }
