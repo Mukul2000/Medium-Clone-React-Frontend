@@ -1,7 +1,7 @@
 import axios from "axios";
 import authHeader from "../user/auth_header";
 
-const API_URL = "http://conduit-medium-clone-api.herokuapp.com/api/";
+const API_URL = "https://conduit-medium-clone-api.herokuapp.com/api/";
 
 async function createArticle(title, description, body) {
     const article = {
