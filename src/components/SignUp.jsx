@@ -47,7 +47,7 @@ export default function Login() {
                 <div className="form-group">
                     <label> Username </label>
                     <input
-                        class="form-control"
+                        className="form-control"
                         value={uname}
                         onChange={(e) => setUname(e.target.value)}
                         type="text"
