@@ -1,68 +1,94 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router";
-import Button from "react-bootstrap/Button";
+import React, { useEffect } from 'react';
+import { useFormik } from 'formik';
+import { useHistory } from 'react-router-dom';
 import ArticleServices from "../services/article/article_services";
 
-export default function NewArticle(props) {
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [body, setBody] = useState("");
+const validate = values => {
+    const errors = {};
 
-    let history = useHistory();
+    if (!values.title) errors.title = 'Required';
+    else if (values.title.length < 10) errors.title = 'Title must be atleast 10 characters';
 
-    function validateForm() {
-        return title.length > 5 && description.length > 20 && body.length > 50
-    }
+    if (!values.description) errors.description = 'Required';
+    else if (values.description.length < 10) errors.title = 'Description must be atleast 10 characters';
 
-    async function handleSubmit(e) {
-        e.preventDefault();
+    if (!values.body) errors.body = 'Required';
+    else if (values.body.length < 50) errors.body = 'Body must be atleast 50 characters';
+    return errors;
+};
 
-        try {
-            const response = await ArticleServices.createArticle(title, description, body);
-            history.push("/");
+export default function SignUp(props) {
+
+    const history = useHistory();
+
+    useEffect(() => {
+        if (localStorage.getItem('user')) {
+
         }
-        catch (e) {
-            console.log(e);
+        else {
+            alert('Please log in first');
+            history.push("/login");
         }
+    }, [])
 
-    }
-
+    const formik = useFormik({
+        initialValues: {
+            title: '',
+            description: '',
+            body: '',
+        },
+        validate,
+        onSubmit: async (values) => {
+            try {
+                const response = await ArticleServices.createArticle(values.title, values.description, values.body);
+                alert("Successful");
+                history.push("/");
+            }
+            catch (e) {
+                formik.errors.general = "Unsuccessful please try again later";
+            }
+        }
+    });
 
     return (
-        <div className="mt-4 ml-4">
-            <h1> Create something </h1>
-            <form onSubmit={handleSubmit}>
+        <div className="container">
+            <form onSubmit={formik.handleSubmit}>
+                <label htmlFor="title">Title</label>
+                <input
+                    className="form-control"
+                    id=""
+                    name="title"
+                    type="text"
+                    onChange={formik.handleChange}
+                    value={formik.values.title}
+                />
+                {formik.errors.title ? <div className="error text-danger">{formik.errors.title}</div> : null}
+                <label htmlFor="description">Description</label>
+                <input
+                    className="form-control"
+                    id="description"
+                    name="description"
+                    type="description"
+                    onChange={formik.handleChange}
+                    value={formik.values.description}
+                />
+                {formik.errors.description ? <div className="error text-danger">{formik.errors.description}</div> : null}
                 <div className="form-group">
-                    <label> Title </label>
-                    <input
-                        class="form-control"
-                        value={title}
-                        autoFocus
-                        onChange={(e) => setTitle(e.target.value)}
-                        type="text" />
-                </div>
-                <div className="form-group">
-                    <label> Description </label>
-                    <input
-                        class="form-control"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        type="text" />
-                </div>
-                <div className="form-group">
-                    <label> Body </label>
+                    <label htmlFor="">Body</label>
                     <textarea
-                        class="form-control"
-                        value={body}
-                        onChange={(e) => setBody(e.target.value)}
-                        type="text"
-                        height = "100"
-                        />
+                        rows = {20}
+                        className="form-control"
+                        id="body"
+                        name="body"
+                        type="body"
+                        onChange={formik.handleChange}
+                        value={formik.values.body}
+                    />
                 </div>
-                <div className="mb-3">
-                    <Button type="submit" variant="primary" disabled={!validateForm()}> Submit </Button>
-                </div>
+                {formik.errors.body ? <div className="error text-danger">{formik.errors.body}</div> : null}
+                <button type="submit" variant="primary">Submit</button>
+                {formik.errors.general ? <div className="error text-danger"> {formik.errors.general}</div> : null}
             </form>
         </div>
     );
-}
+};

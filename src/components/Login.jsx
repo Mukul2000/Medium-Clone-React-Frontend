@@ -41,7 +41,7 @@ export default function Login(props) {
             try {
             const response = await AuthServices.login(values.email, values.password);
             console.log(response);
-            localStorage.setItem('user', JSON.stringify(response))
+            localStorage.setItem('user', JSON.stringify(response.user))
             props.location.loginStat.setLogin(true);
             history.push("/");
             }
