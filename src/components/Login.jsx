@@ -23,18 +23,12 @@ const validate = values => {
     return errors;
 };
 
-const onSubmit = async (values) => {
-    const response = await AuthServices.login(values.email, values.password);
-    console.log(response);
-    history.push("/");
-}
-
 export default function Login(props) {
 
-    let history = useHistory();
+    const history = useHistory();
 
     useEffect(() => {
-        if (localStorage.getItem('user')) history.push("/");
+        if (localStorage.getItem('user')) history.goBack();
     }, [])
 
     const formik = useFormik({
@@ -43,7 +37,18 @@ export default function Login(props) {
             password: '',
         },
         validate,
-        onSubmit
+        onSubmit: async (values) => {
+            try {
+            const response = await AuthServices.login(values.email, values.password);
+            console.log(response);
+            localStorage.setItem('user', JSON.stringify(response))
+            props.location.loginStat.setLogin(true);
+            history.push("/");
+            }
+            catch(e) {
+                formik.errors.general = "Incorrect email or password";
+            }
+        }
     });
 
     return (
@@ -72,6 +77,7 @@ export default function Login(props) {
                 </div>
                 {formik.errors.password ? <div className="error text-danger">{formik.errors.password}</div> : null}
                 <button type="submit" variant="primary">Submit</button>
+                {formik.errors.general ? <div className="error text-danger"> {formik.errors.general}</div> : null} 
             </form>
         </div>
     );
