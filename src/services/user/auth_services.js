@@ -13,7 +13,14 @@ async function login(email, pass) {
     return response.data;
 }
 
-async function register(signup_creds) {
+async function register(username,email,password) {
+    const signup_creds = {
+        "user": {
+            "username": username,
+            "email": email,
+            "password": password,
+        }
+    }
     const response = await axios.post(API_URL+"users", signup_creds);
     return response.data;
 }

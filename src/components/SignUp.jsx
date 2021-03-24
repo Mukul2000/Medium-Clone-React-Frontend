@@ -1,86 +1,95 @@
-import React, { useState, useEffect } from "react";
-import Button from "react-bootstrap/Button";
-import { useHistory } from "react-router";
-import AuthServices from "../services/user/auth_services"
-import {Link} from "react-router-dom";
+import React, { useEffect } from 'react';
+import { useFormik } from 'formik';
+import { useHistory } from 'react-router-dom';
+import AuthServices from "../services/user/auth_services";
 
+const validate = values => {
+    const errors = {};
 
-export default function Login() {
-    const [email, setEmail] = useState("");
-    const [pass, setPassword] = useState("");
-    const [uname, setUname] = useState("");
+    if(!values.username) errors.username = 'Required';
+    else if(values.username.length <= 3) errors.username = 'Username must be atleast 4 characters';
 
-    let history = useHistory();
-
-    function validateForm() {
-        return uname.length > 0 && email.length > 0 && pass.length > 0;
+    if (!values.email) {
+        errors.email = 'Required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Invalid email address';
     }
+
+    if (!values.password) {
+        errors.password = 'Required';
+    }
+    else if (values.password.length > 20 || values.password.length < 6) {
+        errors.password = 'Password must be >= 6 and <= 20 characters';
+    }
+
+    return errors;
+};
+
+export default function SignUp(props) {
+
+    const history = useHistory();
 
     useEffect(() => {
-        if(localStorage.getItem("user")) history.push("/");
+        if (localStorage.getItem('user')) history.goBack();
     }, [])
 
-    async function handleSubmit(event) {
-        event.preventDefault();
-        try {
-            const creds = {
-                "user": {
-                    "username": uname,
-                    "email": email,
-                    "password": pass
-                }
+    const formik = useFormik({
+        initialValues: {
+            username: '',
+            email: '',
+            password: '',
+        },
+        validate,
+        onSubmit: async (values) => {
+            try {
+            const response = await AuthServices.register(values.username, values.email, values.password);
+            alert("Sign up successful");
+            history.push("/login");
             }
-            const response = await AuthServices.register(creds);
-            console.log(response);
-            history.push("/");
-            // window.location.reload();
+            catch(e) {
+                formik.errors.general = "Unsuccessful please try again later";
+            }
         }
-        catch (e) {
-            console.log(e);
-        }
-    }
+    });
 
     return (
-        <div className="mt-4 ml-4">
-                <h1> Sign Up </h1>
-                <form onSubmit={handleSubmit}>
+        <div className="container">
+            <form onSubmit={formik.handleSubmit}>
+            <label htmlFor="username">Username</label>
+                <input
+                    className="form-control"
+                    id="username"
+                    name="username"
+                    type="text"
+                    onChange={formik.handleChange}
+                    value={formik.values.username}
+                />
+                {formik.errors.username ? <div className="error text-danger">{formik.errors.username}</div> : null}
+                <label htmlFor="email">Email Address</label>
+                <input
+                    className="form-control"
+                    id="email"
+                    name="email"
+                    type="email"
+                    onChange={formik.handleChange}
+                    value={formik.values.email}
+                />
+                {formik.errors.email ? <div className="error text-danger">{formik.errors.email}</div> : null}
                 <div className="form-group">
-                    <label> Username </label>
+                    <label htmlFor="password">Password</label>
                     <input
                         className="form-control"
-                        value={uname}
-                        onChange={(e) => setUname(e.target.value)}
-                        type="text"
-                        placeholder="Enter username"
-                    />
-                    </div>
-                    <div className="form-group">
-                    <label> Email </label>
-                    <input
-                        class="form-control"
-                        value={email}
-                        autoFocus
-                        onChange={(e) => setEmail(e.target.value)}
-                        type="email"
-                        placeholder="Enter email"
-                    />
-                    </div>
-                    <div className="form-group">
-                    <label> Password </label>
-                    <input
-                        class="form-control"
-                        value={pass}
-                        onChange={(e) => setPassword(e.target.value)}
+                        id="password"
+                        name="password"
                         type="password"
-                        placeholder="Enter password"
+                        onChange={formik.handleChange}
+                        value={formik.values.password}
                     />
-                    </div>
-                    <div className="mb-3">
-                        <Button type="submit" variant="primary" disabled={!validateForm()}> Submit </Button>
-                    </div>
-                </form>
-        <Link to ="/login"> Log In </Link>
-       
+                </div>
+                {formik.errors.password ? <div className="error text-danger">{formik.errors.password}</div> : null}
+                <button type="submit" variant="primary">Submit</button>
+                {formik.errors.general ? <div className="error text-danger"> {formik.errors.general}</div> : null} 
+            </form>
         </div>
     );
-}
+};
