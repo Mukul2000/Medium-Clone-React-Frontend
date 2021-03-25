@@ -25,9 +25,6 @@ export default function Home() {
                     <p className="lead text-center">
                         What's your story today?
                 </p>
-                    <p className="text-center">
-                        <Button variant="primary">Explore</Button>
-                    </p>
                 </Jumbotron>
             </div>
             <div className = "container">
