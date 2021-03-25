@@ -2,6 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 export default function Article(props) {
+
+    let body = props.body;
+    if(props.body.length > 100) {
+        body = body.substr(0,50) + "...";
+    }
+
     return (
         <div className="card text-blue bg-light mb-3">
             <div className="d-flex flex row ml-2">
@@ -15,7 +21,7 @@ export default function Article(props) {
             </div>
             <div className="card-body">
                 <h5 className="card-title">{props.description}</h5>
-                <p className="card-text text-white">{props.body}</p>
+                <p className="card-text text-white">{body}</p>
             </div>
 
         </div>

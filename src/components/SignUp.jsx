@@ -30,7 +30,10 @@ export default function SignUp(props) {
     const history = useHistory();
 
     useEffect(() => {
-        if (localStorage.getItem('user')) history.goBack();
+        if (localStorage.getItem('user')) {
+            alert('Already logged in!')
+            history.push("/");
+        }
     }, [])
 
     const formik = useFormik({

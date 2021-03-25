@@ -28,7 +28,10 @@ export default function Login(props) {
     const history = useHistory();
 
     useEffect(() => {
-        if (localStorage.getItem('user')) history.goBack();
+        if (localStorage.getItem('user')) {
+            alert("You are already logged in!");
+            history.goBack();
+        }
     }, [])
 
     const formik = useFormik({

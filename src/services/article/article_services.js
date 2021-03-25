@@ -26,7 +26,7 @@ async function getBySlug(slug) {
 
 const ArticleServices = {
     createArticle,
-    getBySlug
+    getBySlug,
 }
 
 export default ArticleServices;
